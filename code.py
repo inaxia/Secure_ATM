@@ -13,6 +13,18 @@ def press(num):
     expression = expression + str(num)
     equation.set(expression)
 
+
+def clear():
+    global expression
+    expression = ""
+    equation.set("")
+
+def backspace():
+    global expression
+    expression = expression[:-1]
+    equation.set(expression)
+
+
 input_field = Entry(window, textvariable = equation)
 input_field.grid(columnspan=5, ipadx=50 ,ipady=10, padx=5,pady=5)
 
@@ -52,13 +64,13 @@ button11.grid(row=4,column=1,padx=5, pady=5)
 button12 = Button(window, text='', fg='black', bg='white', height=2, width=5)
 button12.grid(row=4,column=2,padx=5, pady=5)
 
-button13 = Button(window, text='CANCEL', fg='black', bg='white', height=2, width=8)
+button13 = Button(window, text='CANCEL', fg='black', bg='white',command=clear, height=2, width=8)
 button13.grid(row=1,column=4,padx=5, pady=5)
 
 button14 = Button(window, text='ENTER', fg='black', bg='white', height=2, width=8)
 button14.grid(row=2,column=4,padx=5, pady=5)
 
-button15 = Button(window, text='CUT', fg='black', bg='white', height=2, width=8)
+button15 = Button(window, text='CUT', fg='black', bg='white',command=backspace, height=2, width=8)
 button15.grid(row=3,column=4,padx=5, pady=5)
 
 button16 = Button(window, text=' ', fg='black', bg='white', height=2, width=8)
