@@ -3,82 +3,111 @@ from tkinter import *
 window = Tk()
 window.title("ATM")
 
-equation = StringVar()
+# Field keys
+atmIdFieldKey = StringVar()
+pinFieldKey = StringVar()
 
-expression = ""
+# Variables for fields
+atmIdText = ""
+pinText = ""
 
+# To keep track of the SCREENS
+screenNumber = 0
 
+# For INTEGER buttons
 def pressButton(num):
-    global expression
-    expression = expression + str(num)
-    equation.set(expression)
+    global atmIdText, pinText
+    if screenNumber == 1:
+        atmIdText = atmIdText + str(num)
+        atmIdFieldKey.set(atmIdText)
+    elif screenNumber == 2:
+        pinText = pinText + str(num)
+        pinFieldKey.set(pinText)
 
-
+# For CLEAR button
 def clearAll():
-    global expression
-    expression = ""
-    equation.set("")
+    global atmIdText, pinText
+    if screenNumber == 1:
+        atmIdText = ""
+        atmIdFieldKey.set(atmIdText)
+    elif screenNumber == 2:
+        pinText = ""
+        pinFieldKey.set(pinText)
 
-
+# For BACKSPACE button
 def clearOne():
-    global expression
-    expression = expression[:-1]
-    equation.set(expression)
+    global atmIdText, pinText
+    if screenNumber == 1:
+        atmIdText = atmIdText[:-1]
+        atmIdFieldKey.set(atmIdText)
+    elif screenNumber == 2:
+        pinText = pinText[:-1]
+        pinFieldKey.set(pinText)
 
+# Page 1
+def goToPage1():
+    page0.destroy()
 
-def nextPage():
-    page1.destroy()
+    global screenNumber
+    screenNumber = 1
 
-    page2 = LabelFrame(mainFrame)
-    page2.grid(columnspan=5, ipadx=140, ipady=90, padx=10, pady=10)
+    page1 = LabelFrame(mainFrame)
+    page1.grid(columnspan=5, ipadx=140, ipady=90, padx=10, pady=10)
 
-    atmId = Label(page2, text="ATM ID")
-    atmId.place(relx=0.2,rely=0.4,anchor="center")
+    atmId = Label(page1, text="ATM ID")
+    atmId.place(relx=0.2, rely=0.4, anchor="center")
 
-    atmIdField = Entry(page2, textvariable=equation)
+    atmIdField = Entry(page1, textvariable=atmIdFieldKey)
     atmIdField.place(relx=0.6, rely=0.4, anchor="center")
     
-    atmIdSubmit = Button(page2, text='Next', bg='white', height=2, width=10, command=lambda: pinIdPage())
+    atmIdSubmit = Button(page1, text='Next', bg='white', height=2, width=10, command=lambda: goToPage2())
     atmIdSubmit.place(relx=0.5, rely=0.7, anchor="center")
     
-    def pinIdPage():
-        page2.destroy()
-        page3 = LabelFrame(mainFrame)
-        page3.grid(columnspan=5, ipadx=140, ipady=90, padx=10, pady=10)
-        
-        pinInput = StringVar()
-        pin = Label(page3, text="PIN")
-        pin.place(relx=0.2, rely=0.5,anchor="center")
+    # Page 2
+    def goToPage2():
+        page1.destroy()
 
-        pinField = Entry(page3, textvariable = equation)
-        pinField.place(relx=0.6, rely=0.5, anchor="center")
-        
-        def checkPin():
-            global expression
-            if expression =="1234":
-                result="SUCCESS!!"
-            else:
-                result="WRONG PIN!! /nTRY AGAIN"
-                expression=""
-                equation.set("")
-            resultLabel = Label(page3,textvariable=result)
-            resultLabel.place(relx=0.5, rely=0.8,anchor="center")
-    
-        
+        global screenNumber
+        screenNumber = 2
 
+        page2 = LabelFrame(mainFrame)
+        page2.grid(columnspan=5, ipadx=140, ipady=90, padx=10, pady=10)
+        
+        pin = Label(page2, text="PIN")
+        pin.place(relx=0.2, rely=0.4, anchor="center")
+
+        pinField = Entry(page2, textvariable = pinFieldKey)
+        pinField.place(relx=0.6, rely=0.4, anchor="center")
+
+        pinSubmit = Button(page2, text='Submit', bg='white', height=2, width=10, command=lambda: goToPage3())
+        pinSubmit.place(relx=0.5, rely=0.7, anchor="center")
+
+        # Page 3
+        def goToPage3():
+            page2.destroy()
+
+            page3 = LabelFrame(mainFrame)
+            page3.grid(columnspan=5, ipadx=140, ipady=90, padx=10, pady=10)
+
+            successText = Label(page3, text='Thank You')
+            successText.place(relx=0.5, rely=0.5, anchor="center")
+
+        
+# Main frame
 mainFrame = LabelFrame(window, pady=20)
 mainFrame.grid(columnspan=5,)
 
-page1 = LabelFrame(mainFrame, pady=20)
-page1.grid(columnspan=5, ipadx=140, ipady=90, padx=10, pady=10)
+# Page 0
+page0 = LabelFrame(mainFrame, pady=20)
+page0.grid(columnspan=5, ipadx=140, ipady=90, padx=10, pady=10)
 
-welcomeText = Label(page1, text='WELCOME TO XYZ BANK ATM')
-welcomeText.place(relx=0.5, rely=0.2, anchor="center")
+welcomeText = Label(page0, text='WELCOME TO XYZ BANK ATM')
+welcomeText.place(relx=0.5, rely=0.3, anchor="center")
 
-nextbtn = Button(page1, text='Next', bg='white', height=2, width=10, command=lambda: nextPage())
-nextbtn.place(relx=0.5, rely=0.7, anchor="center")
+nextbutton = Button(page0, text='Next', bg='white', height=2, width=10, command=lambda: goToPage1())
+nextbutton.place(relx=0.5, rely=0.7, anchor="center")
 
-
+# All buttons
 button1 = Button(window, text='1', fg='black', bg='red', command=lambda: pressButton(1), height=2, width=5)
 button1.grid(row=1, column=0, padx=5, pady=5)
 
@@ -109,13 +138,13 @@ button9.grid(row=3, column=2, padx=5, pady=5)
 button0 = Button(window, text='0', fg='black', bg='light green', command=lambda: pressButton(0), height=2, width=5)
 button0.grid(row=4, column=1, padx=5, pady=5)
 
-backspace = Button(window, text='BACKSPACE', fg='black', bg='light grey', command=clearOne(), height=2, width=10)
+backspace = Button(window, text='BACKSPACE', fg='black', bg='light grey', command=lambda: clearOne(), height=2, width=10)
 backspace.grid(row=1, column=4, padx=5, pady=5)
 
-clear = Button(window, text='CLEAR', fg='black', bg='light grey', command=clearAll(), height=2, width=10)
+clear = Button(window, text='CLEAR', fg='black', bg='light grey', command=lambda: clearAll(), height=2, width=10)
 clear.grid(row=2, column=4, padx=5, pady=5)
 
-enter = Button(window, text='ENTER', fg='black', bg='light grey',command=lambda:checkPin(), height=2, width=10)
+enter = Button(window, text='ENTER', fg='black', bg='light grey', height=2, width=10)
 enter.grid(row=3, column=4, padx=5, pady=5)
 
 window.mainloop()
