@@ -22,7 +22,6 @@ screenNumber = 0
 # Number list
 normalList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 shuffledList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-random.shuffle(shuffledList)
 
 # A global variable to use everywhere
 globalList = normalList
@@ -42,6 +41,8 @@ def pressEnter():
 class Table:
     def __init__(self, page):
         global globalList
+
+        random.shuffle(shuffledList)
 
         if(screenNumber==1):
             globalList = normalList
