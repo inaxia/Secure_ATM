@@ -1,10 +1,8 @@
 from tkinter import *
-from PIL import ImageTk, Image
 import random
 
 window = Tk()
 window.title("ATM")
-window.resizable(False, False) 
 
 # Field keys
 atmIdFieldKey = StringVar()
@@ -52,16 +50,16 @@ class Table:
             globalList = shuffledList
 
         # take the data
-        lst = [('Red', globalList[0], img1),
-               ('Dark Green', globalList[1], img2),
-               ('Blue', globalList[2], img3),
-               ('Yellow', globalList[3], img4),
-               ('Brown', globalList[4], img5),
-               ('Orange', globalList[5], img6),
-               ('Purple', globalList[6], img7),
-               ('Grey', globalList[7], img8),
-               ('Pink', globalList[8], img9),
-               ('Light Green', globalList[9], img10)]
+        lst = [('Red', globalList[0]),
+               ('Dark Green', globalList[1]),
+               ('Blue', globalList[2]),
+               ('Yellow', globalList[3]),
+               ('Brown', globalList[4]),
+               ('Orange', globalList[5]),
+               ('Purple', globalList[6]),
+               ('Grey', globalList[7]),
+               ('Pink', globalList[8]),
+               ('Light Green', globalList[9])]
 
         newFrame = Frame(page, bg='Light blue')
         newFrame.grid(columnspan=5)
@@ -70,9 +68,8 @@ class Table:
             bgColor = ""
             for j in range(10):
                 bgColor = lst[j][0]
-                lstimg = lst[j][2]
                 if(i==0):
-                    e = Label(newFrame, height=45, width=45, image=lstimg)
+                    e = Text(newFrame, height=3, width=6, bg=bgColor)
                     e.grid(row=i, column=j)
                 else:
                     e = Text(newFrame, height=2, width=5, fg='Black', font=('Ariel', 10), padx=8, pady=4)
@@ -229,49 +226,35 @@ buttonsFrame.grid(columnspan=5, padx=10, pady=10, sticky='')
 bottomFrame.grid_rowconfigure(0, weight=1)
 bottomFrame.grid_columnconfigure(0, weight=1)
 
-
-# Button shapes
-img1 = ImageTk.PhotoImage(Image.open("btn1.png"))
-img2 = ImageTk.PhotoImage(Image.open("btn2.png"))
-img3 = ImageTk.PhotoImage(Image.open("btn3.png"))
-img4 = ImageTk.PhotoImage(Image.open("btn4.png"))
-img5 = ImageTk.PhotoImage(Image.open("btn5.png"))
-img6 = ImageTk.PhotoImage(Image.open("btn6.png"))
-img7 = ImageTk.PhotoImage(Image.open("btn7.png"))
-img8 = ImageTk.PhotoImage(Image.open("btn8.png"))
-img9 = ImageTk.PhotoImage(Image.open("btn9.png"))
-img10 = ImageTk.PhotoImage(Image.open("btn10.png"))
-
-
 # Fixed buttons
-button1 = Button(buttonsFrame, image=img1, fg='Black', bg='Black', command=lambda: pressButton(globalList[0]), height=40, width=40)
+button1 = Button(buttonsFrame, fg='Black', bg='Red', command=lambda: pressButton(globalList[0]), height=2, width=5)
 button1.grid(row=1, column=0, padx=5, pady=5)
 
-button2 = Button(buttonsFrame, image=img2, fg='Black', bg='Black', command=lambda: pressButton(globalList[1]), height=40, width=40)
+button2 = Button(buttonsFrame, fg='Black', bg='Dark Green', command=lambda: pressButton(globalList[1]), height=2, width=5)
 button2.grid(row=1, column=1, padx=5, pady=5)
 
-button3 = Button(buttonsFrame, image=img3, fg='Black', bg='Black', command=lambda: pressButton(globalList[2]), height=40, width=40)
+button3 = Button(buttonsFrame, fg='Black', bg='Blue', command=lambda: pressButton(globalList[2]), height=2, width=5)
 button3.grid(row=1, column=2, padx=5, pady=5)
 
-button4 = Button(buttonsFrame, image=img4, fg='Black', bg='Black', command=lambda: pressButton(globalList[3]), height=40, width=40)
+button4 = Button(buttonsFrame, fg='Black', bg='Yellow', command=lambda: pressButton(globalList[3]), height=2, width=5)
 button4.grid(row=2, column=0, padx=5, pady=5)
 
-button5 = Button(buttonsFrame, image=img5, fg='Black', bg='Black', command=lambda: pressButton(globalList[4]), height=40, width=40)
+button5 = Button(buttonsFrame, fg='Black', bg='Brown', command=lambda: pressButton(globalList[4]), height=2, width=5)
 button5.grid(row=2, column=1, padx=5, pady=5)
 
-button6 = Button(buttonsFrame, image=img6, fg='Black', bg='Black', command=lambda: pressButton(globalList[5]), height=40, width=40)
+button6 = Button(buttonsFrame, fg='Black', bg='Orange', command=lambda: pressButton(globalList[5]), height=2, width=5)
 button6.grid(row=2, column=2, padx=5, pady=5)
 
-button7 = Button(buttonsFrame, image=img7, fg='Black', bg='Black', command=lambda: pressButton(globalList[6]), height=40, width=40)
+button7 = Button(buttonsFrame, fg='Black', bg='Purple', command=lambda: pressButton(globalList[6]), height=2, width=5)
 button7.grid(row=3, column=0, padx=5, pady=5)
 
-button8 = Button(buttonsFrame, image=img8, fg='Black', bg='Black', command=lambda: pressButton(globalList[7]), height=40, width=40)
+button8 = Button(buttonsFrame, fg='Black', bg='Grey', command=lambda: pressButton(globalList[7]), height=2, width=5)
 button8.grid(row=3, column=1, padx=5, pady=5)
 
-button9 = Button(buttonsFrame, image=img9, fg='Black', bg='Black', command=lambda: pressButton(globalList[8]), height=40, width=40)
+button9 = Button(buttonsFrame, fg='Black', bg='Pink', command=lambda: pressButton(globalList[8]), height=2, width=5)
 button9.grid(row=3, column=2, padx=5, pady=5)
 
-button0 = Button(buttonsFrame, image=img10, fg='Black', bg='Black', command=lambda: pressButton(globalList[9]), height=40, width=40)
+button0 = Button(buttonsFrame, fg='Black', bg='Light Green', command=lambda: pressButton(globalList[9]), height=2, width=5)
 button0.grid(row=4, column=1, padx=5, pady=5)
 
 backspace = Button(buttonsFrame, text='BACKSPACE', fg='Black', bg='Light grey', command=lambda: clearOne(), height=2, width=10)
