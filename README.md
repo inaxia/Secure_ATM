@@ -11,6 +11,7 @@ This project is made to make **Automated teller machine** more secure. It's simp
 2. Clone that forked repo into your local system
 3. Install `tkinter` library 
 4. Run the code
+5. And you are all done
 
 Ignore the errors and warnings, it won't bother you
 - Correct Atm id: **2020**
